@@ -1,0 +1,35 @@
+#!/usr/bin/python
+
+from __future__ import print_function
+import argparse
+import string
+import random
+
+parser = argparse.ArgumentParser(description='Simple substitute encryption of English text with random permutation to practice frequence analysis')
+parser.add_argument('infile', help='Input file')
+#parser.add_argument('outfile', nargs='?', help='Input file')
+args = parser.parse_args()
+
+plain = string.ascii_lowercase
+key=list(string.ascii_lowercase)
+random.shuffle(key)
+
+infile = open(args.infile, 'r')
+
+text = infile.read()
+count = 0
+
+for letter in text:
+  if letter.isalpha():
+    #print (l.lower(),end='')
+    print (key[plain.index(letter.lower())].capitalize(),end='')
+    count += 1
+    if count % 50 == 0:
+      print('')
+      continue
+    if count % 5 == 0:
+      print (' ',end='')
+      continue
+
+print ('')
+
